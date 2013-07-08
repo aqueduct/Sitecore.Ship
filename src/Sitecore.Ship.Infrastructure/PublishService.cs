@@ -6,7 +6,6 @@ using Sitecore.Data;
 using Sitecore.Data.Managers;
 using Sitecore.Diagnostics;
 using Sitecore.Globalization;
-
 using Sitecore.Ship.Core.Contracts;
 using Sitecore.Ship.Core.Domain;
 
@@ -36,6 +35,21 @@ namespace Sitecore.Ship.Infrastructure
             }
 
             PublishingTask(_publishingActions[publishingMode], publishParameters);
+        }
+
+        public void Run(ItemsToPublish itemsToPublish)
+        {
+            using (new SecurityModel.SecurityDisabler())
+            {
+                var master = Sitecore.Configuration.Factory.GetDatabase("master");
+                var languages = itemsToPublish.TargetLanguages.Select(LanguageManager.GetLanguage).ToArray();
+
+                foreach (var itemToPublish in itemsToPublish.Items)
+                {
+                    var item = master.GetItem(new ID(itemToPublish.ItemId));
+                    Publishing.PublishManager.PublishItem(item, itemsToPublish.TargetDatabases.Select(Sitecore.Configuration.Factory.GetDatabase).ToArray(), languages, itemToPublish.PublishChildren, true);
+                }                
+            }
         }
 
         public DateTime GetLastCompletedRun(PublishLastCompleted completeParameters)

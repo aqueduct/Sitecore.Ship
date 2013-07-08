@@ -52,6 +52,7 @@
     <Compile Include="Domain\InstallPackage.cs" />
     <Compile Include="Contracts\IPackageRepository.cs" />
     <Compile Include="Contracts\IPublishService.cs" />
+    <Compile Include="Domain\ItemToPublish.cs" />
     <Compile Include="Domain\PublishLastCompleted.cs" />
     <Compile Include="NotFoundException.cs" />
     <Compile Include="Domain\PackageInstallationSettings.cs">

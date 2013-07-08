@@ -6,6 +6,7 @@ namespace Sitecore.Ship.Core.Contracts
     public interface IPublishService
     {
         void Run(PublishParameters publishParameters);
-        DateTime GetLastCompletedRun(PublishLastCompleted completeParameters);
+        void Run(ItemsToPublish itemsToPublish);
+        DateTime GetLastCompletedRun(PublishLastCompleted completeParameters);       
     }
 }
