@@ -46,8 +46,8 @@ namespace Sitecore.Ship.Infrastructure
 
                 foreach (var itemToPublish in itemsToPublish.Items)
                 {
-                    var item = master.GetItem(new ID(itemToPublish.ItemId));
-                    Publishing.PublishManager.PublishItem(item, itemsToPublish.TargetDatabases.Select(Sitecore.Configuration.Factory.GetDatabase).ToArray(), languages, itemToPublish.PublishChildren, true);
+                    var item = master.GetItem(new ID(itemToPublish));
+                    Publishing.PublishManager.PublishItem(item, itemsToPublish.TargetDatabases.Select(Sitecore.Configuration.Factory.GetDatabase).ToArray(), languages, true, true);
                 }                
             }
         }

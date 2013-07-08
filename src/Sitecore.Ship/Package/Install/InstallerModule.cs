@@ -66,6 +66,7 @@ namespace Sitecore.Ship.Package.Install
             {
                 var package = this.Bind<InstallPackage>();
                 _repository.AddPackage(package);
+                _installationRecorder.RecordInstall(package.Path, DateTime.Now);
                 return Response.AsNewPackage(package);
             }
             catch (NotFoundException)
@@ -92,6 +93,7 @@ namespace Sitecore.Ship.Package.Install
                 {
                     var package = new InstallPackage { Path = _tempPackager.GetPackageToInstall(file.Value) };
                     _repository.AddPackage(package);
+                    _installationRecorder.RecordInstall(package.Path, DateTime.Now);
                 }
                 finally 
                 {
